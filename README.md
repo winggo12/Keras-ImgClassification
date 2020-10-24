@@ -24,6 +24,10 @@ Folder Arch:
 
 2. Run train.py
 
+Traing Result:
+
+![alt text](type_your_plot_name_here.png)
+
 Details of the code:(TBW)
 
 Check train.py to see the details of the LeNet5
