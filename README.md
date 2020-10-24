@@ -7,7 +7,9 @@ Requirements
 3. imutils == 0.5.3 (pip install imutils) // Module made by pyimagesearch , great website for ML : https://www.pyimagesearch.com/
 4. matplotlib == 3.3.2 (pip install matplotlib)
 5. sklearn == 0.23.2 (pip install sklearn)
+
 How to Run:
+
 
 1. Dataset Preparation:
 -Download the following dataset and create a folder name "data"
