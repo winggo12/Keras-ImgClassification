@@ -26,7 +26,7 @@ Folder Arch:
 
 Traing Result:
 
-![alt text](type_your_plot_name_here.png)
+![alt text](https://live.staticflickr.com/65535/50524873367_d3e92dc9ce_z.jpg)
 
 Details of the code:(TBW)
 
