@@ -25,7 +25,7 @@ Folder Arch:
 2. Run train.py
 
 Traing Result:
-
+As you can see there is a serious overfitting happening in here , which is bad :(
 ![alt text](https://live.staticflickr.com/65535/50524873367_d3e92dc9ce_z.jpg)
 
 Details of the code:(TBW)
