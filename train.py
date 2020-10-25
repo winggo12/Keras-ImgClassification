@@ -1,9 +1,7 @@
-#%%
 
 from IPython.display import Image
 from IPython.core.display import HTML
 
-#%%
 from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
@@ -17,8 +15,6 @@ import random
 import cv2
 import os
 
-#%%
-
 dataset = "data/cifar10png/"
 train_path = dataset + "train"
 val_path = dataset + "val"
@@ -26,7 +22,6 @@ val_path = dataset + "val"
 modelname = "type_your_model_name_here"
 plot = "type_your_plot_name_here.png"
 
-#%%
 
 EPOCHS = 30
 INIT_LR = 1e-3
@@ -37,13 +32,12 @@ LR_W_EXPODECAY = optimizers.schedules.ExponentialDecay(
     staircase=True)
 BS = 32
 
-#%%
+
 
 #data = []
 #labels = []
 labels_name = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
-#%%
 
 train_imagepaths = sorted(list(paths.list_images(train_path)))
 val_imagepaths = sorted(list(paths.list_images(val_path)))
@@ -83,25 +77,20 @@ def data_preprocessing(imagepaths):
 
     return data, labels
 
-#%%
-# train_data , train_labels = np.array()
-# val_data , val_labels = np.array()
+
 train_data, train_labels = data_preprocessing(train_imagepaths)
 val_data, val_labels = data_preprocessing(val_imagepaths)
 
-#%%
 
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 25% for testing
 #(trainX, testX, trainY, testY) = train_test_split(data,labels, test_size=0.25, random_state=42)
 (trainX, testX, trainY, testY) = (train_data, val_data, train_labels, val_labels)
-#%%
 
 # convert the labels from integers to vectors
 trainY = to_categorical(trainY, num_classes=len(labels_name))
 testY = to_categorical(testY, num_classes=len(labels_name))
 
-#%%
 
 # construct the image generator for data augmentation
 # aug = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,
@@ -110,11 +99,7 @@ testY = to_categorical(testY, num_classes=len(labels_name))
 
 data_generator = ImageDataGenerator()
 
-#%% md
-
 #Start Building the Model Right Now:
-
-#%%
 
 from keras import models
 from keras.layers.convolutional import Conv2D
@@ -124,11 +109,8 @@ from keras.layers.core import Flatten
 from keras.layers.core import Dense
 from keras.layers.core import Dropout
 
-#%%
 
 model = models.Sequential()
-
-#%%
 
 height = 32
 width = 32
@@ -153,23 +135,15 @@ model.add(Dense(units=10, activation = 'softmax'))
 opt = Adam(lr=LR_W_EXPODECAY)
 
 model.compile(loss="categorical_crossentropy", optimizer=opt,metrics=["accuracy"])
-#model.compile(loss="binary_crossentropy", optimizer=opt,metrics=["accuracy"])
 
-#%%
 
 H = model.fit_generator(data_generator.flow(trainX, trainY, batch_size=BS),
 	validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,
 	epochs=EPOCHS, verbose=1)
 
-# H = model.fit_generator(aug.flow(trainX, trainY, batch_size=BS),
-# 	validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,
-# 	epochs=EPOCHS, verbose=1)
-
-#%%
 
 model.save(str(modelname) + ".h5")
 
-#%%
 
 # plot the training loss and accuracy
 plt.style.use("ggplot")
@@ -185,11 +159,9 @@ plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig(plot)
 
-#%% md
 
 # Result of the accuracy using categorical_crossentropy (loss)
 
-#%%
 
 # load the image
 # image = cv2.imread("test_images/santa_pepe.jpg")
@@ -197,7 +169,6 @@ plt.savefig(plot)
 # plt.show()
 # orig = image.copy()
 
-#%%
 
 # pre-process the image for classification
 # image = cv2.resize(image, (28, 28))
@@ -206,19 +177,15 @@ plt.savefig(plot)
 # image = img_to_array(image)
 # image = np.expand_dims(image, axis=0)
 
-#%%
 
 # prob = model.predict(image)[0]
 # print(model.predict(image)[0])
 
-#%%
 
 # maximum_prob = np.amax(model.predict(image)[0])
 # predicted_class_number = np.where(prob == maximum_prob)[0][0]
 # predicted_class = labels_name[predicted_class_number]
 # print("The Prediction : " + predicted_class)
-
-#%%
 
 
 
