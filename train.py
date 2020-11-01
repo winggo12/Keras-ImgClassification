@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 
 from IPython.display import Image
 from IPython.core.display import HTML
 
+=======
+>>>>>>> main
 from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
@@ -23,7 +26,7 @@ modelname = "type_your_model_name_here"
 plot = "type_your_plot_name_here.png"
 
 
-EPOCHS = 30
+EPOCHS = 10
 INIT_LR = 1e-3
 LR_W_EXPODECAY = optimizers.schedules.ExponentialDecay(
     INIT_LR,
@@ -127,7 +130,7 @@ model.add(Dense(units=120, activation='relu'))
 model.add(Dense(units=84, activation='relu'))
 model.add(Dense(units=10, activation = 'softmax'))
 
-opt = Adam(lr=LR_W_EXPODECAY)
+opt = Adam(learning_rate=LR_W_EXPODECAY)
 
 model.compile(loss="categorical_crossentropy", optimizer=opt,metrics=["accuracy"])
 
@@ -146,8 +149,8 @@ plt.figure()
 N = EPOCHS
 plt.plot(np.arange(0, N), H.history["loss"], label="train_loss")
 plt.plot(np.arange(0, N), H.history["val_loss"], label="val_loss")
-plt.plot(np.arange(0, N), H.history["acc"], label="train_accuracy")
-plt.plot(np.arange(0, N), H.history["val_acc"], label="val_accuracy")
+plt.plot(np.arange(0, N), H.history["accuracy"], label="train_accuracy")
+plt.plot(np.arange(0, N), H.history["val_accuracy"], label="val_accuracy")
 plt.title("Training Loss and Accuracy")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
