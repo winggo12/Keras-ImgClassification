@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-
-from IPython.display import Image
-from IPython.core.display import HTML
-
-=======
->>>>>>> main
 from keras import optimizers
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
