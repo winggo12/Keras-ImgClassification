@@ -18,10 +18,11 @@ val_path = dataset + "val"
 modelname = "type_your_model_name_here"
 plot = "type_your_plot_name_here.png"
 
+import tensorflow as tf
 
 EPOCHS = 10
 INIT_LR = 1e-3
-LR_W_EXPODECAY = optimizers.schedules.ExponentialDecay(
+LR_W_EXPODECAY = tf.keras.optimizers.schedules.ExponentialDecay(
     INIT_LR,
     decay_steps=1000,
     decay_rate=0.95,
@@ -123,12 +124,12 @@ model.add(Dense(units=120, activation='relu'))
 model.add(Dense(units=84, activation='relu'))
 model.add(Dense(units=10, activation = 'softmax'))
 
-opt = Adam(learning_rate=LR_W_EXPODECAY)
+opt = tf.keras.optimizers.Adam(learning_rate=LR_W_EXPODECAY)
 
 model.compile(loss="categorical_crossentropy", optimizer=opt,metrics=["accuracy"])
 
 
-H = model.fit_generator(data_generator.flow(trainX, trainY, batch_size=BS),
+H = model.fit(data_generator.flow(trainX, trainY, batch_size=BS),
 	validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,
 	epochs=EPOCHS, verbose=1)
 
