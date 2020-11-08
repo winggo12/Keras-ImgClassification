@@ -126,7 +126,7 @@ model.add(Dense(units=10, activation = 'softmax'))
 
 opt = tf.keras.optimizers.Adam(learning_rate=LR_W_EXPODECAY)
 
-model.compile(loss="categorical_crossentropy", optimizer=opt,metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer="adam",metrics=["accuracy"])
 
 
 H = model.fit(data_generator.flow(trainX, trainY, batch_size=BS),
