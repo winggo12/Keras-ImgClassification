@@ -6,6 +6,7 @@ from keras.preprocessing.image import img_to_array
 from keras.utils import to_categorical
 from imutils import paths
 import matplotlib.pyplot as plt
+import datetime
 import numpy as np
 import random
 import cv2
@@ -73,6 +74,7 @@ def data_preprocessing(imagepaths):
             d[:, :, channel] -= image_normalize_mean[channel]
             d[:, :, channel] /= image_normalize_std[channel]
 
+
     labels = np.array(labels)
 
     return data, labels
@@ -109,7 +111,7 @@ data_generator = ImageDataGenerator()
 #Start Building the Model Right Now:
 
 #%%
-
+import keras
 from keras import models
 from keras.layers.convolutional import Conv2D
 from keras.layers.convolutional import MaxPooling2D , AveragePooling2D
@@ -119,7 +121,12 @@ from keras.layers.core import Dense
 from keras.layers.core import Dropout
 
 #%%
+logdir = "./graph/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
+if not os.path.exists("graph"):
+    os.makedirs("graph")
+
+tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir, histogram_freq=1)
 model = models.Sequential()
 
 #%%
@@ -153,7 +160,7 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,metrics=["accuracy"
 
 H = model.fit_generator(data_generator.flow(trainX, trainY, batch_size=BS),
 	validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,
-	epochs=EPOCHS, verbose=1)
+	epochs=EPOCHS, verbose=1, callbacks=[tensorboard_callback] )
 
 # H = model.fit_generator(aug.flow(trainX, trainY, batch_size=BS),
 # 	validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,

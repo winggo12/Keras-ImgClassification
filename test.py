@@ -11,6 +11,7 @@ import numpy as np
 import random
 import cv2
 import os
+import time
 
 dataset = "data/cifar10png/"
 test_path = dataset + "test"
@@ -58,6 +59,10 @@ test_data, test_labels = data_preprocessing(test_imagepaths)
 (testX, testY) = (test_data, test_labels)
 testY = to_categorical(testY, num_classes=len(labels_name))
 
+start_time = time.time()
 model = keras.models.load_model(str(modelname) + ".h5")
 results = model.evaluate(testX, testY, batch_size=128)
-print("test loss, test acc:", results)
+end_time = time.time()
+time_dif = end_time - start_time
+print("Test loss, Test acc: ", results)
+print("Time Required is: ", time_dif)
